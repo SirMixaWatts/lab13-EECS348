@@ -1,0 +1,64 @@
+2. Program to debug
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Original faulty function
+bool faillecture_faulty(const vector<int>& attendance_records) {
+    int absent_count = 0;
+    for (int i = 1; i < attendance_records.size(); ++i) {
+        absent_count += attendance_records[i] == 0;
+    }
+    return absent_count >= 3;
+}
+
+// Corrected function for verification
+bool faillecture_correct(const vector<int>& attendance_records) {
+    int absent_count = 0;
+    for (int i = 0; i < attendance_records.size(); ++i) {
+        absent_count += attendance_records[i] == 0;
+    }
+    return absent_count >= 3;
+}
+
+void test_case(const vector<int>& records, const string& test_name) {
+    bool faulty_result = faillecture_faulty(records);
+    bool correct_result = faillecture_correct(records);
+    
+    cout << "Test: " << test_name << endl;
+    cout << "Attendance: ";
+    for (int val : records) cout << val << " ";
+    cout << endl;
+    cout << "Faulty output: " << (faulty_result ? "FAIL" : "PASS") << endl;
+    cout << "Correct output: " << (correct_result ? "FAIL" : "PASS") << endl;
+    cout << "Matches expected: " << (faulty_result == correct_result ? "YES" : "NO") << endl;
+    cout << "-----------------------------------" << endl;
+}
+
+
+3. Questions
+
+1. Is there a fault in the program? If so, locate it and explain.
+for (int i = 1; i < attendance_records.size(); ++i) {
+
+2. Define a test case that does not execute the fault. Start from this ques-
+tion, if it is possible, you should give the test case (the attendance record
+with 10 values), the expected output and the actual output. If impossible,
+explains the reason. Besides, you should implement the complete program,
+including the functions under test, and verify your inputs along with their
+corresponding outputs.
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+
+
+3. Define a test case that executes the fault but does not result in an error
+State.
+{0, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+
+4. Define a test case that results in an error state but not a failure.
+{0, 0, 0, 1, 1, 1, 1, 1, 1, 1}
+
+5. Define a test case that results in failure.
+{1, 0, 0, 0, 1, 1, 1, 1, 1, 1}
+
+
